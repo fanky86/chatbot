@@ -1,13 +1,10 @@
-const { Configuration, OpenAIApi } = require("openai");
+import { OpenAI } from "openai";  // Mengimpor OpenAI
 
-// Konfigurasi OpenAI dengan API key
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY, // Pastikan API key disimpan sebagai Environment Variable
+// Inisialisasi OpenAI dengan API key
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(configuration);
-
-// Handler untuk permintaan API
 export default async function handler(req, res) {
     if (req.method === "POST") {
         const { message } = req.body;
@@ -17,12 +14,12 @@ export default async function handler(req, res) {
         }
 
         try {
-            const response = await openai.createChatCompletion({
+            const response = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo",
                 messages: [{ role: "user", content: message }],
             });
 
-            const botReply = response.data.choices[0].message.content;
+            const botReply = response.choices[0].message.content;
             return res.status(200).json({ reply: botReply });
         } catch (error) {
             console.error("Error dengan OpenAI API:", error);
