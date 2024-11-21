@@ -3,7 +3,8 @@ document.getElementById('send-btn').addEventListener('click', async () => {
   if (userInput.trim()) {
     appendMessage('user', userInput);
     document.getElementById('user-input').value = '';
-    
+
+    // Kirim input ke backend API untuk mendapatkan balasan
     const botResponse = await getBotResponse(userInput);
     appendMessage('bot', botResponse);
   }
