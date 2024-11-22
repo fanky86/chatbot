@@ -17,7 +17,7 @@ async function sendMessage() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `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` // Ganti dengan API key Anda
+                "Authorization": `Bearer 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` // Ganti dengan API key Anda
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
